@@ -394,7 +394,7 @@ mont = {'01': 'January',
 ######################################## GUI FRONT-END ###########################################
 
 window = tk.Tk()
-window.geometry("1920x1080")
+window.geometry("1280x720")
 window.resizable(True,False)
 window.title("Attendance System")
 window.configure(background='#262523')
@@ -460,3 +460,53 @@ if exists:
 else:
     res = 0
 message.configure(text='Total Registrations till now  : '+str(res))
+
+##################### MENUBAR #################################
+
+menubar = tk.Menu(window,relief='ridge')
+filemenu = tk.Menu(menubar,tearoff=0)
+filemenu.add_command(label='Change Password', command = change_pass)
+filemenu.add_command(label='Contact Us', command = contact)
+filemenu.add_command(label='Exit',command = window.destroy)
+menubar.add_cascade(label='Help',font=('times', 29, ' bold '),menu=filemenu)
+
+################## TREEVIEW ATTENDANCE TABLE ####################
+
+tv= ttk.Treeview(frame1,height =13,columns = ('name','date','time'))
+tv.column('#0',width=82)
+tv.column('name',width=130)
+tv.column('date',width=133)
+tv.column('time',width=133)
+tv.grid(row=2,column=0,padx=(0,0),pady=(150,0),columnspan=4)
+tv.heading('#0',text ='ID')
+tv.heading('name',text ='NAME')
+tv.heading('date',text ='DATE')
+tv.heading('time',text ='TIME')
+
+###################### SCROLLBAR ################################
+
+scroll=ttk.Scrollbar(frame1,orient='vertical',command=tv.yview)
+scroll.grid(row=2,column=4,padx=(0,100),pady=(150,0),sticky='ns')
+tv.configure(yscrollcommand=scroll.set)
+
+###################### BUTTONS ##################################
+
+clearButton = tk.Button(frame2, text="Clear", command=clear  ,fg="black"  ,bg="#ea2a2a"  ,width=11 ,activebackground = "white" ,font=('times', 11, ' bold '))
+clearButton.place(x=335, y=86)
+clearButton2 = tk.Button(frame2, text="Clear", command=clear2  ,fg="black"  ,bg="#ea2a2a"  ,width=11 , activebackground = "white" ,font=('times', 11, ' bold '))
+clearButton2.place(x=335, y=172)
+takeImg = tk.Button(frame2, text="Take Images", command=TakeImages  ,fg="white"  ,bg="blue"  ,width=34  ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
+takeImg.place(x=30, y=300)
+trainImg = tk.Button(frame2, text="Save Profile", command=psw ,fg="white"  ,bg="blue"  ,width=34  ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
+trainImg.place(x=30, y=380)
+trackImg = tk.Button(frame1, text="Take Attendance", command=TrackImages  ,fg="black"  ,bg="yellow"  ,width=35  ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
+trackImg.place(x=30,y=50)
+quitWindow = tk.Button(frame1, text="Quit", command=window.destroy  ,fg="black"  ,bg="red"  ,width=35 ,height=1, activebackground = "white" ,font=('times', 15, ' bold '))
+quitWindow.place(x=30, y=450)
+
+##################### END ######################################
+
+window.configure(menu=menubar)
+window.mainloop()
+
+####################################################################################################
